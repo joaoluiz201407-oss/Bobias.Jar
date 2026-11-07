@@ -1,0 +1,21 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+}
+group = 'com.bobias'
+version = '1.0.0'
+base { archivesName = 'bobias' }
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+minecraft {
+    mappings channel: 'official', version: '1.21.4'
+    copyIdeResources = true
+    runs {
+        configureEach { workingDirectory project.file('run'); mods { bobias { source sourceSets.main } } }
+        client {}
+        server { args '--nogui' }
+    }
+}
+dependencies { minecraft 'net.minecraftforge:forge:1.21.4-54.1.0' }
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
